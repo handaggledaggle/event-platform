@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import NavBar from '@/components/NavBar';
 import {
   getAllRegistrations,
@@ -13,15 +13,13 @@ export default function AdminParticipantsPage() {
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(true);
 
-  const loadData = useCallback(async () => {
-    const data = await getAllRegistrations();
-    setApps(data);
-    setLoading(false);
-  }, []);
-
   useEffect(() => {
-    loadData();
-  }, [loadData]);
+    (async () => {
+      const data = await getAllRegistrations();
+      setApps(data);
+      setLoading(false);
+    })();
+  }, []);
 
   const eventOptions = Array.from(
     new Map(apps.map(a => [a.event.id, a.event.title])).entries()

@@ -38,14 +38,12 @@ export default function AdminEventPage() {
   const [form, setForm] = useState<FormData>(emptyForm);
   const [loading, setLoading] = useState(true);
 
-  const loadEvents = async () => {
-    const data = await getEvents();
-    setEventList(data);
-    setLoading(false);
-  };
-
   useEffect(() => {
-    loadEvents();
+    (async () => {
+      const data = await getEvents();
+      setEventList(data);
+      setLoading(false);
+    })();
   }, []);
 
   const openCreate = () => {
